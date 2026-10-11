@@ -1,20 +1,37 @@
+import type { CSSProperties } from "react"
 import { journey } from "../data/portfolio.ts"
 import { ExternalLink } from "./ExternalLink.tsx"
+
+function YearLabel({ year }: { year: string }) {
+  const [start, end] = year.split("–")
+  if (end) {
+    return (
+      <p className="timeline-year is-range">
+        <span>{start}</span>
+        <span className="year-end">–{end}</span>
+      </p>
+    )
+  }
+
+  return <p className="timeline-year">{year}</p>
+}
 
 export function Journey() {
   return (
     <section id="journey" className="section band reveal" aria-labelledby="journey-title">
       <div className="container">
-        <div className="section-heading">
+        <div className="section-heading reveal-child">
           <h2 id="journey-title">Education and Journey</h2>
           <p>Education, a hackathon, an internship, and a research publication.</p>
         </div>
         <ol className="timeline">
-          {journey.map((group) => (
-            <li className="timeline-item" key={group.year}>
-              <p className={group.year.length > 4 ? "timeline-year is-range" : "timeline-year"}>
-                {group.year}
-              </p>
+          {journey.map((group, index) => (
+            <li
+              className="timeline-item reveal-child"
+              key={group.year}
+              style={{ "--i": index } as CSSProperties}
+            >
+              <YearLabel year={group.year} />
               <div className="timeline-cards">
                 {group.milestones.map((milestone) => (
                   <article className="milestone" key={milestone.title}>

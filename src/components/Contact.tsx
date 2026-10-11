@@ -29,18 +29,18 @@ export function Contact() {
         : ""
 
   return (
-    <section id="contact" className="section reveal" aria-labelledby="contact-title">
+    <section id="contact" className="section contact-section reveal" aria-labelledby="contact-title">
       <div className="container contact-grid">
-        <div>
+        <div className="reveal-child">
           <h2 id="contact-title">
             Let&apos;s Build Something <span className="highlight">Together</span>
           </h2>
           <p className="lede">{contactCopy}</p>
           <a className="btn btn-primary" href={`mailto:${profile.email}`}>
-            Email Akash
+            Email Akash <span className="btn-arrow" aria-hidden="true">→</span>
           </a>
         </div>
-        <address className="contact-list">
+        <address className="contact-list reveal-child">
           <div className="contact-row">
             <span>Email</span>
             <a className="email-link" href={`mailto:${profile.email}`}>

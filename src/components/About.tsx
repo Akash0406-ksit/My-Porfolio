@@ -6,7 +6,7 @@ export function About() {
   return (
     <section id="about" className="section band reveal" aria-labelledby="about-title">
       <div className="container about-layout">
-        <div>
+        <div className="reveal-child">
           <h2 id="about-title">A Little About Me</h2>
           <div className="prose">
             {aboutParagraphs.map((paragraph) => (
@@ -15,7 +15,7 @@ export function About() {
           </div>
         </div>
         <dl className="info-list">
-          <div>
+          <div className="reveal-child">
             <dt>Education</dt>
             <dd>
               <strong>{education.degree}</strong>
@@ -26,7 +26,7 @@ export function About() {
             </dd>
           </div>
           {role ? (
-            <div>
+            <div className="reveal-child">
               <dt>Currently</dt>
               <dd>
                 <strong>{role.role}</strong>
@@ -35,7 +35,7 @@ export function About() {
               </dd>
             </div>
           ) : null}
-          <div>
+          <div className="reveal-child">
             <dt>Location</dt>
             <dd>
               <strong>{profile.location}</strong>

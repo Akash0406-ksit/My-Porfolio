@@ -5,7 +5,7 @@ export function Projects() {
   return (
     <section id="projects" className="section reveal" aria-labelledby="projects-title">
       <div className="container">
-        <div className="section-heading">
+        <div className="section-heading reveal-child">
           <h2 id="projects-title">Featured Projects</h2>
           <p>
             Coursework, hackathon, and major-project work across web development and artificial

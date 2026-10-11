@@ -14,7 +14,6 @@ export function useActiveSection() {
       const last = ids[ids.length - 1]
       if (!first || !last) return
 
-      const scrollBottom = window.scrollY + window.innerHeight
       const pageHeight = document.documentElement.scrollHeight
 
       if (window.scrollY < 48) {
@@ -22,12 +21,14 @@ export function useActiveSection() {
         return
       }
 
-      if (scrollBottom >= pageHeight - 4) {
+      const maxScroll = Math.max(0, pageHeight - window.innerHeight)
+      if (window.scrollY >= maxScroll - 2) {
         setActive(last)
         return
       }
 
-      const marker = window.scrollY + 140
+      const header = document.querySelector(".site-header")
+      const marker = window.scrollY + (header?.getBoundingClientRect().height ?? 72) + 36
       let current = first
       for (const id of ids) {
         const element = document.getElementById(id)

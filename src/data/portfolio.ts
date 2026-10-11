@@ -28,9 +28,9 @@ export const profile = {
 export const hero = {
   kicker: "Hello, I'm Akash K C",
   titleStart: "Building",
-  titleAccent: "useful",
-  titleEnd: "software.",
-  titleSecond: "Learning every day.",
+  titleAccent: "digital",
+  titleEnd: "experiences.",
+  titleSecond: "Engineering better solutions.",
   description:
     "I'm a Computer Science and Design student and Software Development Engineer Intern who enjoys building web applications, integrating APIs, and improving software reliability through development and testing.",
 }

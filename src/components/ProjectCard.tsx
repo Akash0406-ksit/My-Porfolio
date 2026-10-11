@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, type CSSProperties, type PointerEvent } from "react"
 import { isAssetPath, isHttpUrl, type Project } from "../data/portfolio.ts"
 import { ExternalLink } from "./ExternalLink.tsx"
 
@@ -18,8 +18,30 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
   const demo = isHttpUrl(project.demo) ? project.demo : undefined
   const number = String(index + 1).padStart(2, "0")
 
+  function onPointerMove(event: PointerEvent<HTMLElement>) {
+    if (event.pointerType !== "mouse") return
+    const rect = event.currentTarget.getBoundingClientRect()
+    const x = (event.clientX - rect.left) / rect.width
+    const y = (event.clientY - rect.top) / rect.height
+    event.currentTarget.style.setProperty("--mx", `${x * 100}%`)
+    event.currentTarget.style.setProperty("--my", `${y * 100}%`)
+    if (project.featured) return
+    event.currentTarget.style.setProperty("--rx", `${(0.5 - y) * 1.4}deg`)
+    event.currentTarget.style.setProperty("--ry", `${(x - 0.5) * 1.8}deg`)
+  }
+
+  function onPointerLeave(event: PointerEvent<HTMLElement>) {
+    event.currentTarget.style.setProperty("--rx", "0deg")
+    event.currentTarget.style.setProperty("--ry", "0deg")
+  }
+
   return (
-    <article className={project.featured ? "project-card featured" : "project-card"}>
+    <article
+      className={project.featured ? "project-card featured reveal-child" : "project-card reveal-child"}
+      style={{ "--i": index } as CSSProperties}
+      onPointerMove={onPointerMove}
+      onPointerLeave={onPointerLeave}
+    >
       {showImage ? (
         <div className={`project-visual visual-${project.motif}`}>
           <img
@@ -51,12 +73,12 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           <div className="project-links">
             {repository ? (
               <ExternalLink className="text-link" href={repository}>
-                {repositoryLabel(repository)} <span aria-hidden="true">↗</span>
+                {repositoryLabel(repository)} <span className="link-arrow" aria-hidden="true">↗</span>
               </ExternalLink>
             ) : null}
             {demo ? (
               <ExternalLink className="text-link" href={demo}>
-                Live demo <span aria-hidden="true">↗</span>
+                Live demo <span className="link-arrow" aria-hidden="true">↗</span>
               </ExternalLink>
             ) : null}
           </div>

@@ -52,8 +52,39 @@ export function Navbar() {
     setOpen(false)
   }
 
+  const progress = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const bar = progress.current
+    if (!bar) return
+    const progressBar = bar
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+
+    let frame = 0
+    function update() {
+      frame = 0
+      const max = document.documentElement.scrollHeight - window.innerHeight
+      const amount = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0
+      progressBar.style.transform = `scaleX(${amount})`
+    }
+    function onScroll() {
+      if (frame) return
+      frame = window.requestAnimationFrame(update)
+    }
+
+    update()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    window.addEventListener("resize", onScroll)
+    return () => {
+      window.removeEventListener("scroll", onScroll)
+      window.removeEventListener("resize", onScroll)
+      if (frame) window.cancelAnimationFrame(frame)
+    }
+  }, [])
+
   return (
     <header className="site-header" ref={headerRef}>
+      <div className="scroll-progress" ref={progress} aria-hidden="true" />
       <div className="container nav-wrap">
         <Logo onNavigate={closeMenu} />
         <button

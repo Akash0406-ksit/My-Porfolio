@@ -2,6 +2,7 @@ import { About } from "./components/About.tsx"
 import { Achievements } from "./components/Achievements.tsx"
 import { Certifications } from "./components/Certifications.tsx"
 import { Contact } from "./components/Contact.tsx"
+import { CursorAccent } from "./components/CursorAccent.tsx"
 import { Experience } from "./components/Experience.tsx"
 import { Footer } from "./components/Footer.tsx"
 import { Hero } from "./components/Hero.tsx"
@@ -19,6 +20,7 @@ export default function App() {
   return (
     <>
       <Seo />
+      <CursorAccent />
       <a className="skip-link" href="#main">
         Skip to content
       </a>

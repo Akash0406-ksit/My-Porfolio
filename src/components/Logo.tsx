@@ -7,7 +7,7 @@ type LogoProps = {
 export function Logo({ onNavigate }: LogoProps) {
   return (
     <a className="logo" href="#home" onClick={onNavigate}>
-      <span className="logo-mark" aria-hidden="true" />
+      <span className="logo-mark" aria-hidden="true">AK</span>
       {profile.logo}
     </a>
   )

@@ -1,9 +1,19 @@
-import { useEffect } from "react"
+import { useLayoutEffect } from "react"
+
+const selector = ".reveal-child, .reveal-group, .timeline"
 
 export function useReveal() {
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.documentElement.classList.add("js")
-    const nodes = document.querySelectorAll(".reveal")
+    const nodes = Array.from(document.querySelectorAll(selector))
+    if (nodes.length === 0) return
+
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    if (reduce || typeof IntersectionObserver === "undefined") {
+      nodes.forEach((node) => node.classList.add("is-in"))
+      return
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -12,10 +22,16 @@ export function useReveal() {
           observer.unobserve(entry.target)
         })
       },
-      { threshold: 0.12 },
+      { rootMargin: "0px 0px -10% 0px", threshold: 0 },
     )
 
-    nodes.forEach((node) => observer.observe(node))
+    const view = window.innerHeight
+    nodes.forEach((node) => {
+      const rect = node.getBoundingClientRect()
+      if (rect.top < view * 0.92 && rect.bottom > 0) node.classList.add("is-in")
+      else observer.observe(node)
+    })
+
     return () => observer.disconnect()
   }, [])
 }

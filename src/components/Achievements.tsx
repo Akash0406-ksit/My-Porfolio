@@ -4,10 +4,10 @@ export function Achievements() {
   return (
     <section id="achievements" className="section band-muted reveal" aria-labelledby="achievements-title">
       <div className="container">
-        <div className="section-heading">
+        <div className="section-heading reveal-child">
           <h2 id="achievements-title">Achievements</h2>
         </div>
-        <article className="award">
+        <article className="award reveal-child">
           <div className="award-mark">
             <span>Place</span>
             <strong>2nd</strong>
